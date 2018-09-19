@@ -1,14 +1,9 @@
 {
   "manifest_version": 2,
 
-  "name": "Chrome Extension TypeScript Starter",
-  "description": "Chrome Extension, TypeScript, Visual Studio Code",
-  "version": "1.0",
-
-  "options_ui": {
-    "page": "options.html",
-    "chrome_style": true
-  },
+  "name": "Tab Manager",
+  "description": "Search, pin and open tabs quickly.",
+  "version": "0.1",
 
   "browser_action": {
     "default_icon": "icon.png",
@@ -22,12 +17,8 @@
       }
   ],
 
-  "background": {
-    "scripts": ["js/vendor.js", "js/background.js"]
-  },
-
   "permissions": [
-    "storage",
+    "tabs",
     "<all_urls>"
   ]
 }
