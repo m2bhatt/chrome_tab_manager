@@ -3,15 +3,13 @@
   <head>
     <meta charset="UTF-8">
     <title>Getting Started Extension's Popup</title>
-    <style>
-      body {
-        font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
-        font-size: 100%;
-      }
-    </style>
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <script src="js/vendor.js"></script>
   </head>
-  <body>
+  <body id="container">
+    <form><input type="text" placeholder="Search tabs">
+    </form>
     <ul id="open-tabs"></ul>
     <script src="js/popup.js"></script>
   </body>

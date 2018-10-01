@@ -5,7 +5,7 @@ $(function() {
   function displayUrlsOfOpenTabs() {
     chrome.tabs.query({windowId: chrome.windows.WINDOW_ID_CURRENT}, (tabs) => {
       tabs.forEach((tab) => {
-        $('#open-tabs').append(`<li>${tab.title}</li>`)
+        $('#open-tabs').append(`<li class="title">${tab.title}</li><li class="link">${tab.url}</li>`)
       });
     });
   }
