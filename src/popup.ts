@@ -6,8 +6,9 @@ $(function() {
     chrome.tabs.query({windowId: chrome.windows.WINDOW_ID_CURRENT}, (tabs) => {
       tabs.forEach((tab) => {
         var $wrapper = $("<div class='container'></div>"); 
-        var $image = $(`<img class="favicon" src="${tab.favIconUrl}">`).appendTo($wrapper); 
-        var $title = $(`<li class="title">${tab.title}</li>`).appendTo($wrapper);
+        var $li = $("<li class='subcontainer'></li>").appendTo($wrapper);
+        var $image = $(`<img class="favicon" src="${tab.favIconUrl}">`).appendTo($li); 
+        var $title = $(`<text class="title">${tab.title}</text>`).appendTo($li);
         var $url = $(`<li class="link">${tab.url}</li>`).appendTo($wrapper);
 
         $wrapper.click(onWrapperClick);
