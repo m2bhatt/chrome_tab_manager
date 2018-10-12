@@ -29,5 +29,10 @@
     "webpack": "~4.17.2",
     "webpack-cli": "~3.1.0",
     "webpack-merge": "~4.1.4"
+  },
+  "jest": {
+    "gloabls": {
+      "$": null
+    }
   }
 }
