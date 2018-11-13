@@ -1,8 +1,14 @@
 export default class Tab {
     chromeTab: any;
+    tabs: any;
 
-    constructor(chromeTab) {
+    constructor(chromeTab, options = { chrome: { tabs: null } }) {
         this.chromeTab = chromeTab;
+        this.tabs = options.chrome.tabs;
+        
+        if (!this.tabs) {
+            this.tabs = chrome.tabs;
+        }
     }
 
     render($) {
@@ -20,10 +26,10 @@ export default class Tab {
     }
 
     close(element) {
-        chrome.tabs.remove(this.chromeTab.id, () => element.remove());
+        this.tabs.remove(this.chromeTab.id, () => element.remove());
     }
 
     pin() {
-        chrome.tabs.update(this.chromeTab.id, {pinned: true})  
+        this.tabs.update(this.chromeTab.id, {pinned: true})  
     }
 }
