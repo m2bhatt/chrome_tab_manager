@@ -10,6 +10,10 @@ body {
 }
 
 input {
+  border: 1px solid #696969;
+  border-radius: 5px;
+  margin-top: 3px;
+  margin-bottom: 3px; 
 }
 
 ul {
@@ -38,3 +42,30 @@ li {
   height: 16px;
   width: 16px;
 }
+
+.delTab {
+  color: black;
+  background: transparent;
+  border: 1px solid black;
+  border-radius: 6px;
+  margin-left: 2px;
+  float: right;
+}
+
+.delTab:hover {
+  background-color: black; 
+  color: white; 
+} 
+
+.pinTab {
+  color: black;
+  background: transparent;
+  border: 1px solid black;
+  border-radius: 6px;
+  float: right;
+}
+
+.pinTab:hover {
+  background-color: black; 
+  color: white; 
+} 
