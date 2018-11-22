@@ -1,3 +1,11 @@
+interface ChromeTab {
+    id?: number;
+    pinned: boolean;
+    url?: string;
+    favIconUrl?: string;
+    title?: string;
+}
+
 export default class Tab {
     id: number;
     pinned: boolean;
@@ -7,7 +15,7 @@ export default class Tab {
 
     tabs: any;
 
-    constructor(chromeTab, options = { chrome: { tabs: null } }) {
+    constructor(chromeTab: ChromeTab, options = { chrome: { tabs: null } }) {
         this.id = chromeTab.id;
         this.pinned = chromeTab.pinned;
         this.title = chromeTab.title;

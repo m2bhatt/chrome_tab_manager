@@ -10,7 +10,8 @@ function createChromeTab() {
     return {
         title: 'Google',
         favIconUrl: 'https://google.com/fav.ico',
-        url: 'google.com'
+        url: 'google.com',
+        pinned: false
     };
 }
 
