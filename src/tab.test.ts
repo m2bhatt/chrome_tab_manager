@@ -64,10 +64,16 @@ test('it can close a tab', () => {
     $('li .delTab', tab.render($)).click();
 
     expect(tabs.remove).toBeCalledTimes(1);
-    // Test that the element has been removed from the DOM (there is a gotcha: 
-    // you need to invoke the callback function passed to the mock to simulate the behaviour of the Chrome API)
+    expect($('li').length).toEqual(0);
 });
 
 test('it can unpin a tab', () => {
+    let tabs = {update: jest.fn()};
+    let tab = createTab(tabs); 
 
+    $('li .pinTab', tab.render($)).click();
+    $('li .pinTab', tab.render($)).click();
+
+    expect(tabs.update).toBeCalledTimes(2);
+    expect(tabs.update.mock.calls[1][1]).toEqual({pinned: false});
 });
