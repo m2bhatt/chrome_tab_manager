@@ -1,4 +1,4 @@
-interface ChromeTab {
+export interface ChromeTab {
     id?: number;
     pinned: boolean;
     url?: string;
@@ -12,7 +12,6 @@ export default class Tab {
     title: string;
     url: string;
     favIconUrl: string;
-
     tabs: any;
 
     constructor(chromeTab: ChromeTab, options = { chrome: { tabs: null } }) {
@@ -21,7 +20,6 @@ export default class Tab {
         this.title = chromeTab.title;
         this.url = chromeTab.url;
         this.favIconUrl = chromeTab.favIconUrl;
-
         this.tabs = options.chrome.tabs;
         
         if (!this.tabs) {
@@ -39,7 +37,6 @@ export default class Tab {
         var $pinTab = $('<input class="pinTab" type="button" value="p"></input>').appendTo($li);
         $pinTab.click(this.pin.bind(this));
         var $url = $(`<li class="link">${this.url}</li>`).appendTo($wrapper);
-
         return $wrapper;
     }
 
