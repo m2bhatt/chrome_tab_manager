@@ -23,22 +23,22 @@ export default class Tab {
         this.tabs = options.chrome.tabs;
         
         if (!this.tabs) {
-            this.tabs = chrome.tabs;
+            this.tabs = chrome.tabs; // ReferenceError: chrome is not defined
         }
     }
 
-    render($) {
-        var $wrapper = $("<div class='container'></div>");
-        var $li = $("<li class='subcontainer'></li>").appendTo($wrapper);
-        var $image = $(`<img class="favicon" src="${this.favIconUrl}">`).appendTo($li); 
-        var $title = $(`<text class="title">${this.title}</text>`).appendTo($li);
-        var $delTab = $('<input class="delTab" type="button" value="x"></input>').appendTo($li);
-        $delTab.click(this.close.bind(this, $wrapper));
-        var $pinTab = $('<input class="pinTab" type="button" value="p"></input>').appendTo($li);
-        $pinTab.click(this.pin.bind(this));
-        var $url = $(`<li class="link">${this.url}</li>`).appendTo($wrapper);
-        return $wrapper;
-    }
+    //render($) {
+    //    var $wrapper = $("<div class='container'></div>");
+    //    var $li = $("<li class='subcontainer'></li>").appendTo($wrapper);
+    //     var $image = $(`<img class="favicon" src="${this.favIconUrl}">`).appendTo($li); 
+    //     var $title = $(`<text class="title">${this.title}</text>`).appendTo($li);
+        // var $delTab = $('<input class="delTab" type="button" value="x"></input>').appendTo($li);
+        // $delTab.click(this.close.bind(this, $wrapper)); 
+        // var $pinTab = $('<input class="pinTab" type="button" value="p"></input>').appendTo($li);
+        // $pinTab.click(this.pin.bind(this));
+      //  var $url = $(`<li class="link">${this.url}</li>`).appendTo($wrapper);
+      //  return $wrapper;
+    //}
 
     close(element) {
         this.tabs.remove(this.id, () => element.remove());
@@ -49,3 +49,9 @@ export default class Tab {
         this.pinned = !this.pinned;
     }
 }
+
+// for highlighting tab
+// function onWrapperClick(event) {	
+//     var index = $(`.${event.target.className}`).index(event.target);	
+//     chrome.tabs.highlight({tabs:[index]});	
+//   }
