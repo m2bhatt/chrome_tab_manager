@@ -31,12 +31,13 @@ export default class Tab {
         var $wrapper = $("<div class='container'></div>");
         var $li = $("<li class='subcontainer'></li>").appendTo($wrapper);
         var $image = $(`<img class="favicon" src="${this.favIconUrl}">`).appendTo($li); 
-        var $title = $(`<text class="title">${this.title}</text>`).appendTo($li);
+        var $title = $(`<text class="title">${this.title.substring(0,20)}</text>`).appendTo($li);
         var $delTab = $('<input class="delTab" type="button" value="x"></input>').appendTo($li);
         $delTab.click(this.close.bind(this, $wrapper));
         var $pinTab = $('<input class="pinTab" type="button" value="p"></input>').appendTo($li);
         $pinTab.click(this.pin.bind(this));
-        var $url = $(`<li class="link">${this.url}</li>`).appendTo($wrapper);
+        var $url = $(`<li class="link">${this.url.substring(0,30)}</li>`).appendTo($wrapper);
+
         return $wrapper;
     }
 
