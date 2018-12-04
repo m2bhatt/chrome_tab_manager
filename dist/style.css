@@ -1,12 +1,12 @@
 body {
     font-family: 'Helvetica', sans-serif;
     min-width: 512px;
-    background-color: #e0dede;
+    background-color: #FFFAFA;
 }
 
 .container {
-  border: 1px solid black;
-  border-radius: 5px;
+ /* border: 1px solid black;
+  border-radius: 5px; */
   margin-top: 3px;
   margin-bottom: 3px; 
 } 
@@ -18,19 +18,15 @@ body {
   margin-bottom: 3px; 
 }
 
-ul {
+.subcontainer {
   list-style: none;
   padding-left: 0;
-}
-
-li {
-  padding: 2px;
 }
 
 .title {
   color: black;
   font-size: 16px;
-  padding-left: 2px;
+  /* padding-left: 2px; */
 }
 
 .link {

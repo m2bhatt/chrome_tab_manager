@@ -12,9 +12,7 @@ export default class Renderer {
   // <form class="searchInput"><input type="text" placeholder="Search tabs">
   // </form>
   render($container: JQuery<HTMLElement>) {
-    $container.append(`<div>Number of tabs: ${this.tabCollection.length()}`);
-
-    var $tabCollection = $("<ul class='container'></ul>");
+    let $tabCollection = $container.append("<ul class='container'></ul>").children(":last-child");
     this.tabCollection.forEach(tab => this.renderTab(tab).appendTo($tabCollection));
     $tabCollection.appendTo($container);
   }
@@ -23,9 +21,9 @@ export default class Renderer {
     var $tab = $("<li class='subcontainer'></li>");
 
     $(`<img class="favicon" src="${tab.favIconUrl}">`).appendTo($tab); 
-    $(`<text class="title">${tab.title.substring(0,20)}</text>`).appendTo($tab);
+    $(`<text class="title">${tab.title.substring(0,35)}</text>`).appendTo($tab);
 
-    $('<input class="delTab" type="button" value="x"></input>')
+    $('<input class="delTab" type="button"><img="./images/push-pin-white"></input>')
       .appendTo($tab)
       .click(tab.close.bind(this));
 
@@ -33,7 +31,7 @@ export default class Renderer {
       .appendTo($tab)
       .click(tab.pin.bind(this));
 
-    $(`<li class="link">${tab.url.substring(0,30)}</li>`).appendTo($tab);
+    $(`<li class="link">${tab.url.substring(0,45)}</li>`).appendTo($tab);
 
     return $tab;
   }

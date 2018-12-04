@@ -26,10 +26,10 @@ test('can be instantiated from a Chrome Tab', () => {
   expect(createTab()).toBeInstanceOf(Tab);
 });
 
-test('it renders a wrapper', () => {
-    let tab = createTab();
-    expect(tab.render($)[0].tagName).toBe('DIV');
-});
+// test('it renders a wrapper', () => {
+//     let tab = createTab();
+//     expect(tab.render($)[0].tagName).toBe('DIV');
+// });
 
 test('it renders the title of the tab', () => {
     let tab = createTab();
