@@ -22,20 +22,17 @@ export default class Tab {
         this.favIconUrl = chromeTab.favIconUrl;
         this.tabs = options.chrome.tabs;
         
-        // if (!this.tabs) {
-        //     this.tabs = chrome.tabs;
-        // }
+        if (!this.tabs) {
+            this.tabs = chrome.tabs;
+        }
     }
 
-    close(element) {
-        this.tabs.remove(this.id, () => element.remove());
+    close() {
+        this.tabs.remove(this.id);
     }
 
     pin() {
         this.tabs.update(this.id, {pinned: !this.pinned});
         this.pinned = !this.pinned;
-    }
-
-    render($) {
     }
 }
