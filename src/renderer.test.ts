@@ -4,38 +4,45 @@ import Renderer from './renderer';
 import * as jQuery from 'jquery';
 import { JSDOM } from 'jsdom';
 
-function createTabCollection(tabs: ChromeTab[] = []) {    
-    return new TabCollection(tabs)
-}
+describe(Renderer, () => {
+    var DOM = new JSDOM(`<body></body>`);
+    var $ = null;
 
-function createTab(chromeTabsApiMock = {}) {
-    return new Tab(createChromeTab(), {chrome: {tabs: chromeTabsApiMock}})
-}
+    beforeEach(() => {
+        $ = jQuery(DOM.window);
+    })
+    
+    test('render an empty collection', () => {
+      new Renderer($('body')).render(createTabCollection());
+      expect($('.container').length).toBeGreaterThan(0);
+    });
+    
+    test('it renders the title of the tab', () => {
+        new Renderer($('body')).render(createTabCollection([
+            createChromeTab()
+        ]));
+        expect($('.title').text()).toEqual('Google');
+    });
 
-function createChromeTab(): ChromeTab {
-    return {
-        title: 'Google',
-        favIconUrl: 'https://google.com/fav.ico',
-        url: 'google.com',
-        pinned: false
-    };
-}
+    test('it renders the favicon of the tab', () => {
+        new Renderer($('body')).render(createTabCollection([
+            createChromeTab()
+        ]));
+        expect($('.favicon').attr('src')).toEqual('https://google.com/fav.ico');
+    });
 
-var DOM = new JSDOM(`<body></body>`);
-var $ = null;
+    // -- Helper functions --
 
-beforeEach(() => {
-    $ = jQuery(DOM.window);
-})
-
-test('render an empty collection', () => {
-  new Renderer(createTabCollection()).render($('body'));
-  expect($('.container').length).toBeGreaterThan(0);
-});
-
-test('it renders the title of the tab', () => {
-    let tab = createTab();
-    new Renderer(createTabCollection([tab])).render($('body'));
-    expect($('li text').text()).toBe('Google');
-//    expect($("#subcontainer")[1]).toBe('Google');
+    function createTabCollection(tabs: ChromeTab[] = []) {    
+        return new TabCollection(tabs, {chrome: {tabs: {}}})
+    }
+    
+    function createChromeTab(): ChromeTab {
+        return {
+            title: 'Google',
+            favIconUrl: 'https://google.com/fav.ico',
+            url: 'google.com',
+            pinned: false
+        };
+    }
 });

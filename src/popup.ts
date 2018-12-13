@@ -4,5 +4,5 @@ import Renderer from './renderer'
 
 $(async function() {
   let tabCollection = await TabCollection.intializeWithChromeAPI(chrome);
-  new Renderer(tabCollection).render($('#tab-manager'));
+  new Renderer($('#tab-manager')).render(tabCollection);
 });
