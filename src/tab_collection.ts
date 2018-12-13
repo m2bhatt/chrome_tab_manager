@@ -1,23 +1,21 @@
-import Tab, {ChromeTab} from './tab';
+import Tab from './tab';
 //import Renderer from './renderer'
 
 export default class TabCollection {
     readonly tabs: Tab[];
-    readonly options;
 
-    constructor(tabs: ChromeTab[], options = { chrome: { tabs: null } }) {
-        this.options = options;
+    constructor(tabs: Tab[] = []) {
         this.tabs = [];
         tabs.forEach((tab) => {
-            this.tabs.push(new Tab(tab, options));
+            this.tabs.push(tab);
         });
     }
 
     static async intializeWithChromeAPI(chrome): Promise<TabCollection> {
         return new Promise<TabCollection>(resolve => {
             let tabCollection = new TabCollection([]);
-            chrome.tabs.query({windowId: chrome.windows.WINDOW_ID_CURRENT}, (tabs: ChromeTab[]) => {
-                for (let tab of tabs) tabCollection.append(tab);
+            chrome.tabs.query({windowId: chrome.windows.WINDOW_ID_CURRENT}, (tabs) => {
+                for (let tab of tabs) tabCollection.append(new Tab(tab, { chrome }));
                 resolve(tabCollection);
             });
         })
@@ -27,8 +25,8 @@ export default class TabCollection {
         return this.tabs.length;
     };
 
-    append(tab: ChromeTab) {
-        this.tabs.push(new Tab(tab, this.options))
+    append(tab: Tab) {
+        this.tabs.push(tab)
     }
 
     forEach(iterator: (tab: Tab) => void) {
@@ -36,7 +34,7 @@ export default class TabCollection {
     }
 
     search(query) {
-        let tabCollection = new TabCollection ([], this.options);
+        let tabCollection = new TabCollection ([]);
         for (let tab of this.tabs) {
             if (tab.title.indexOf(query) !== -1) {
                 tabCollection.tabs.push(tab);
