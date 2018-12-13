@@ -21,13 +21,13 @@ export default class Renderer {
     $tab.append(`<img class="favicon" src="${tab.favIconUrl}">`); 
     $tab.append(`<text class="title">${tab.title.substring(0,35)}</text>`)
 
-    // $('<input class="delTab" type="button"><img="./images/push-pin-white"></input>')
-    //   .appendTo($tab)
-    //   .click(tab.close.bind(this));
+    // $tab.append('<input class="delTab" type="button"><img="./images/push-pin-white"></input>')
+    //     .children(":last-child")
+    //     .click(tab.close.bind(this));
 
-    // $('<input class="pinTab" type="button" value="p"></input>')
-    //   .appendTo($tab)
-    //   .click(tab.pin.bind(this));
+    $tab.append('<input class="pinTab" type="button" value="p"></input>')
+      .children(":last-child")
+      .click(() => tab.pin());
 
     // $(`<li class="link">${tab.url.substring(0,45)}</li>`).appendTo($tab);
 

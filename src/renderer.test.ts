@@ -7,9 +7,6 @@ import { JSDOM } from 'jsdom';
 describe(Renderer, () => {
     var DOM = new JSDOM(`<body></body>`);
     var $ = null;
-    var chrome = { tabs: {
-
-    }};
 
     beforeEach(() => {
         $ = jQuery(DOM.window);
@@ -34,6 +31,10 @@ describe(Renderer, () => {
         expect($('.favicon').attr('src')).toEqual('https://google.com/fav.ico');
     });
 
+    test('it renders a button for pinning a tab', () => {
+
+    });
+
     // -- Helper functions --
 
     function createTabCollection(tabs: Tab[] = []) {    
@@ -46,6 +47,6 @@ describe(Renderer, () => {
             favIconUrl: 'https://google.com/fav.ico',
             url: 'google.com',
             pinned: false
-        }, { chrome });
+        });
     }
 });

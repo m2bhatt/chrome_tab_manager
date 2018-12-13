@@ -23,4 +23,6 @@ describe(TabCollection, () => {
     // expect(matches).toBeInstanceOf(TabCollection);
     // expect(matches.length()).toBe(1);
   });
+
+  // Test forEach, append, and new TabCollection
 });
