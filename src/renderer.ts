@@ -33,4 +33,8 @@ export default class Renderer {
 
     return $tab;
   }
+
+  private handleClickEvent() {
+    
+  }
 }
