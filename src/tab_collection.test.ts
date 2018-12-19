@@ -13,7 +13,7 @@ describe(TabCollection, () => {
     let tabCollection = new TabCollection([
         createTab("Hello World"),
         createTab("Goodbye World")
-    ]); // , {chrome: {tabs: {}}});
+    ]);
     let matches = tabCollection.search("Hello World");
 
     expect(matches).toBeInstanceOf(TabCollection);
@@ -24,7 +24,7 @@ describe(TabCollection, () => {
     let tabCollection = new TabCollection([
        createTab("Hello World"),
        createTab("Goodbye World")
-    ]); //, {chrome: {tabs: {}}});
+    ]);
     let matches = tabCollection.search("Hello");
 
     expect(matches).toBeInstanceOf(TabCollection);

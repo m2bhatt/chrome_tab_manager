@@ -7,6 +7,12 @@ import { JSDOM } from 'jsdom';
 describe(Renderer, () => {
     var DOM = new JSDOM(`<body></body>`);
     var $ = null;
+    var chrome = {
+        tabs: {
+          update: null,
+          remove: null,
+        }
+    }
 
     beforeEach(() => {
         $ = jQuery(DOM.window);
@@ -57,6 +63,6 @@ describe(Renderer, () => {
             favIconUrl: 'https://google.com/fav.ico',
             url: 'google.com',
             pinned: false
-        });
+        }, { chrome });
     }
 });
