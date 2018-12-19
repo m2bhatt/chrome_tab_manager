@@ -8,11 +8,20 @@ export default class Renderer {
     this.$app = $app;
   }
 
-  // <form class="searchInput"><input type="text" placeholder="Search tabs">
-  // </form>
   render(tabCollection: TabCollection) {
+    let $search = this.$app.append("<form class='searchInput'><input type='text' placeholder='Search tabs'></form>").children(":last-child");
     let $tabCollection = this.$app.append("<ul class='container'></ul>").children(":last-child");
     tabCollection.forEach(tab => this.renderTab(tab, $tabCollection));
+    let renderer = this;
+ 
+    $search.submit((input) => {
+      input.preventDefault();
+
+      let query = (input.target.children[0] as HTMLInputElement).value;
+      let filteredTabCollection = tabCollection.search(query);
+      $tabCollection.remove();
+      renderer.render(filteredTabCollection);
+    })
   }
   
   private renderTab(tab: Tab, $tabCollection) {
