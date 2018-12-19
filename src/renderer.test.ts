@@ -5,17 +5,16 @@ import * as jQuery from 'jquery';
 import { JSDOM } from 'jsdom';
 
 describe(Renderer, () => {
-    var DOM = new JSDOM(`<body></body>`);
     var $ = null;
     var chrome = {
         tabs: {
           update: null,
           remove: null,
         }
-    }
+    };
 
     beforeEach(() => {
-        $ = jQuery(DOM.window);
+        $ = jQuery(new JSDOM(`<body></body>`).window);
     })
     
     test('render an empty collection', () => {
