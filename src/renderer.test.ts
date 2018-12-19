@@ -32,7 +32,17 @@ describe(Renderer, () => {
     });
 
     test('it renders a button for pinning a tab', () => {
+        new Renderer($('body')).render(createTabCollection([
+            createChromeTab()
+        ]));
+        expect($('.container .pinTab').length).toBeGreaterThan(0);
+    });
 
+    test('it renders a button for closing a tab', () => {
+        new Renderer($('body')).render(createTabCollection([
+            createChromeTab()
+        ]));
+        expect($('.container .delTab').length).toBeGreaterThan(0);
     });
 
     // -- Helper functions --

@@ -21,9 +21,9 @@ export default class Renderer {
     $tab.append(`<img class="favicon" src="${tab.favIconUrl}">`); 
     $tab.append(`<text class="title">${tab.title.substring(0,35)}</text>`)
 
-    // $tab.append('<input class="delTab" type="button"><img="./images/push-pin-white"></input>')
-    //     .children(":last-child")
-    //     .click(tab.close.bind(this));
+    $tab.append('<input class="delTab" type="button" value="x"></input>')
+         .children(":last-child")
+         .click(() => tab.close());
 
     $tab.append('<input class="pinTab" type="button" value="p"></input>')
       .children(":last-child")

@@ -22,9 +22,9 @@ export default class Tab {
         this.favIconUrl = chromeTab.favIconUrl;
         this.tabs = options.chrome.tabs;
         
-        if (!this.tabs) {
-            this.tabs = chrome.tabs;
-        }
+        // if (!this.tabs) {
+        //     this.tabs = chrome.tabs;
+        // }
     }
 
     close() {
