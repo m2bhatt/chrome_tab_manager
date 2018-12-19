@@ -23,7 +23,7 @@ export default class Renderer {
 
     $tab.append('<input class="delTab" type="button" value="x"></input>')
          .children(":last-child")
-         .click(() => tab.close());
+         .click(() => tab.close(() => $tab.remove()));
 
     $tab.append('<input class="pinTab" type="button" value="p"></input>')
       .children(":last-child")
@@ -35,6 +35,6 @@ export default class Renderer {
   }
 
   private handleClickEvent() {
-    
+
   }
 }

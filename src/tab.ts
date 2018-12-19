@@ -27,8 +27,8 @@ export default class Tab {
         }
     }
 
-    close() {
-        this.tabs.remove(this.id);
+    close(callback = undefined) {
+        this.tabs.remove(this.id, callback);
     }
 
     pin() {

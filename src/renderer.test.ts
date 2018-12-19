@@ -24,30 +24,46 @@ describe(Renderer, () => {
     
     test('it renders the title of the tab', () => {
         new Renderer($('body')).render(createTabCollection([
-            createChromeTab()
+            createTab(chrome)
         ]));
         expect($('.title').text()).toEqual('Google');
     });
-
+    
     test('it renders the favicon of the tab', () => {
         new Renderer($('body')).render(createTabCollection([
-            createChromeTab()
+            createTab(chrome)
         ]));
         expect($('.favicon').attr('src')).toEqual('https://google.com/fav.ico');
     });
 
     test('it renders a button for pinning a tab', () => {
         new Renderer($('body')).render(createTabCollection([
-            createChromeTab()
+            createTab(chrome)
         ]));
         expect($('.container .pinTab').length).toBeGreaterThan(0);
     });
 
     test('it renders a button for closing a tab', () => {
         new Renderer($('body')).render(createTabCollection([
-            createChromeTab()
+            createTab(chrome)
         ]));
         expect($('.container .delTab').length).toBeGreaterThan(0);
+    });
+
+    test('it removes the tab from the tab collection when the tab is closed', () => {
+        let remove = jest.fn((_, callback) => {
+            if(callback) callback();
+        });
+
+        new Renderer($('body')).render(createTabCollection([
+            createTab({ tabs: {
+                remove: remove,
+                update: null
+            }})
+        ]));
+        $('.container .delTab').click();
+
+        expect($('.container .subcontainer').length).toEqual(0);
     });
 
     // -- Helper functions --
@@ -56,7 +72,7 @@ describe(Renderer, () => {
         return new TabCollection(tabs)
     }
     
-    function createChromeTab(): Tab {
+    function createTab(chrome: { tabs: { update: any, remove: any } }): Tab {
         return new Tab({
             title: 'Google',
             favIconUrl: 'https://google.com/fav.ico',
