@@ -1,6 +1,82 @@
 import TabCollection from './tab_collection';
 import Tab from './tab';
 
+class TabRenderer {
+  tab: Tab;
+  $tab: JQuery<HTMLElement>;
+
+  constructor(tab: Tab) {
+    this.tab = tab;
+  }
+
+  render($tabCollection) {
+    var $tab = this.$tab = $tabCollection.append("<li class='subcontainer'></li>").children(":last-child");
+
+    $tab.append(`<img class="favicon" src="${this.tab.favIconUrl}">`); 
+    $tab.append(`<text class="title">${this.tab.title.substring(0,35)}</text>`)
+
+    $tab.append('<input class="delTab" type="button" value="x"></input>')
+         .children(":last-child")
+         .click(() => this.tab.close(() => $tab.remove()));
+
+    $tab.append('<input class="pinTab" type="button" value="p"></input>')
+      .children(":last-child")
+      .click(() => this.tab.pin());
+  }
+
+  show(condition: (tab: Tab) => Boolean) {
+    if (condition(this.tab)) {
+      this.$tab.show();
+    } else {
+      this.$tab.hide();
+    }
+  }
+}
+
+class TabCollectionRenderer {
+  tabs: TabCollection;
+  tabRenderers: TabRenderer[];
+
+  constructor(tabs: TabCollection) {
+    this.tabs = tabs;
+    this.tabRenderers = [];
+  }
+
+  render($container) {
+    let $tabCollection = $container.append("<ul class='container'></ul>").children(":last-child");
+    this.tabs.forEach(tab => {
+      let tabRenderer = new TabRenderer(tab);
+      this.tabRenderers.push(tabRenderer);
+      tabRenderer.render($tabCollection);
+    });
+  }
+
+  filter(query) {
+    for(let tabRenderer of this.tabRenderers) {
+      tabRenderer.show((tab) => tab.query(query))
+    }
+  }
+}
+
+class SearchFormRenderer {
+  searchCallback = null;
+
+  render($container) {
+    let $searchForm = $container.append("<form class='searchInput'><input type='text' placeholder='Search tabs'></form>").children(":last-child");
+    $searchForm.submit((event) => this.search(event));
+  }
+
+  search(eventOrCallback) {
+    if (typeof eventOrCallback == "function") {
+      this.searchCallback = eventOrCallback;
+    } else {
+      eventOrCallback.preventDefault();
+      let query = (eventOrCallback.target.children[0] as HTMLInputElement).value;
+      this.searchCallback(query);
+    }
+  }
+}
+
 export default class Renderer {
   $app: JQuery<HTMLElement>;
   
@@ -9,41 +85,12 @@ export default class Renderer {
   }
 
   render(tabCollection: TabCollection) {
-    let $search = this.$app.append("<form class='searchInput'><input type='text' placeholder='Search tabs'></form>").children(":last-child");
-    let $tabCollection = this.$app.append("<ul class='container'></ul>").children(":last-child");
-    tabCollection.forEach(tab => this.renderTab(tab, $tabCollection));
-    let renderer = this;
- 
-    $search.submit((input) => {
-      input.preventDefault();
+    let searchFormRenderer = new SearchFormRenderer()
+    searchFormRenderer.render(this.$app);
 
-      let query = (input.target.children[0] as HTMLInputElement).value;
-      let filteredTabCollection = tabCollection.search(query);
-      $tabCollection.remove();
-      renderer.render(filteredTabCollection);
-    })
-  }
-  
-  private renderTab(tab: Tab, $tabCollection) {
-    var $tab = $tabCollection.append("<li class='subcontainer'></li>").children(":last-child");
+    let tabCollectionRenderer = new TabCollectionRenderer(tabCollection)
+    tabCollectionRenderer.render(this.$app);
 
-    $tab.append(`<img class="favicon" src="${tab.favIconUrl}">`); 
-    $tab.append(`<text class="title">${tab.title.substring(0,35)}</text>`)
-
-    $tab.append('<input class="delTab" type="button" value="x"></input>')
-         .children(":last-child")
-         .click(() => tab.close(() => $tab.remove()));
-
-    $tab.append('<input class="pinTab" type="button" value="p"></input>')
-      .children(":last-child")
-      .click(() => tab.pin());
-
-    // $(`<li class="link">${tab.url.substring(0,45)}</li>`).appendTo($tab);
-
-    return $tab;
-  }
-
-  private handleClickEvent() {
-
+    searchFormRenderer.search((query) => tabCollectionRenderer.filter(query));
   }
 }

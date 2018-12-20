@@ -35,4 +35,8 @@ export default class Tab {
         this.tabs.update(this.id, {pinned: !this.pinned});
         this.pinned = !this.pinned;
     }
+
+    query(query) {
+        return this.title.indexOf(query) !== -1
+    }
 }
