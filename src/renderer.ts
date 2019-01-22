@@ -13,7 +13,8 @@ class TabRenderer {
     var $tab = this.$tab = $tabCollection.append("<li class='subcontainer'></li>").children(":last-child");
 
     $tab.append(`<img class="favicon" src="${this.tab.favIconUrl}">`); 
-    $tab.append(`<text class="title">${this.tab.title.substring(0,35)}</text>`)
+    $tab.append(`<text class="title">${this.tab.title.substring(0,40)}</text>`);
+    $tabCollection.append(`<text class="link">${this.tab.url.substring(0,40)}</text>`);
 
     $tab.append('<input class="delTab" type="button" value="x"></input>')
          .children(":last-child")
@@ -62,7 +63,7 @@ class SearchFormRenderer {
   searchCallback = null;
 
   render($container) {
-    let $searchForm = $container.append("<form class='searchInput'><input type='text' placeholder='Search tabs'></form>").children(":last-child");
+    let $searchForm = $container.append("<form class='searchForm'><input class='searchInput' type='text' placeholder='Search'></form>").children(":last-child");
     $searchForm.submit((event) => this.search(event));
   }
 

@@ -1,7 +1,7 @@
 body {
-    font-family: 'Helvetica', sans-serif;
+    font-family: 'Sarabun', sans-serif;
     min-width: 512px;
-    background-color: #FFFAFA;
+    background-color: #F8F8FF;
 }
 
 .container {
@@ -12,33 +12,37 @@ body {
 } 
 
 .searchInput {
-  border: 3px solid #696969;
+  width: 80%;
+  display: block;
+  margin: auto;
+  height: 10%;
+  padding: 2%;
+  border: 1px solid rgba(123, 122, 128, 0.678); 
   border-radius: 5px;
-  margin-top: 3px;
-  margin-bottom: 3px; 
 }
 
 .subcontainer {
   list-style: none;
-  padding-left: 0;
+  padding: 4% 0 0 0;
 }
 
 .title {
   color: black;
   font-size: 16px;
+  padding: 0 0 0 4%
   /* padding-left: 2px; */
 }
 
 .link {
   color: rgba(0, 153, 255, 0.822);
   font-size: 75%;
-  padding-left: 5px; 
+  padding-left:20px; 
   padding-bottom: 5px;
 }
 
 .favicon {
-  height: 16px;
-  width: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .delTab {
