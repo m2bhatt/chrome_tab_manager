@@ -37,6 +37,6 @@ export default class Tab {
     }
 
     query(query) {
-        return this.title.indexOf(query) !== -1
+        return this.title.toUpperCase().indexOf(query.toUpperCase()) !== -1
     }
 }

@@ -32,14 +32,4 @@ export default class TabCollection {
     forEach(iterator: (tab: Tab) => void) {
         this.tabs.forEach(iterator);
     }
-
-    search(query) {
-        let tabCollection = new TabCollection ([]);
-        for (let tab of this.tabs) {
-            if (tab.title.toUpperCase().indexOf(query.toUpperCase()) !== -1) { // toUppcase() for case insensitive
-                tabCollection.tabs.push(tab);
-            }
-        }
-        return tabCollection;
-    }
 }   

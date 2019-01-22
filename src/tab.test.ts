@@ -44,16 +44,31 @@ describe(Tab, () => {
         expect(chrome.tabs.update).toBeCalledWith(expect.any(Number), expect.objectContaining({ pinned: false }));
     });
 
+    it('supports searching by exact title', () => {
+        let tab = createTab("Hello World");
+        expect(tab.query("Hello World")).toBeTruthy();
+      });
+    
+      it('supports searching by partial title', () => {
+        let tab = createTab("Hello World");
+        expect(tab.query("Hell")).toBeTruthy();
+      });
+    
+      it('search is case insensitive', () => {
+        let tab = createTab("Hello World");
+        expect(tab.query("hell")).toBeTruthy();
+      })
+
     // -- Helper functions --
 
-    function createTab() {
-        return new Tab(createChromeTab(), { chrome });
+    function createTab(title = 'Google') {
+        return new Tab(createChromeTab(title), { chrome });
     }
 
-    function createChromeTab() {
+    function createChromeTab(title = 'Google') {
         return {
             id: 1,
-            title: 'Google',
+            title: title,
             favIconUrl: 'https://google.com/fav.ico',
             url: 'google.com',
             pinned: false

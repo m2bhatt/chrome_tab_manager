@@ -9,39 +9,6 @@ describe(TabCollection, () => {
     }
   }
 
-  it('supports searching by exact title', () => {
-    let tabCollection = new TabCollection([
-        createTab("Hello World"),
-        createTab("Goodbye World")
-    ]);
-    let matches = tabCollection.search("Hello World");
-
-    expect(matches).toBeInstanceOf(TabCollection);
-    expect(matches.length()).toBe(1);
-  });
-
-  it('supports searching by partial title', () => {
-    let tabCollection = new TabCollection([
-       createTab("Hello World"),
-       createTab("Goodbye World")
-    ]);
-    let matches = tabCollection.search("Hello");
-
-    expect(matches).toBeInstanceOf(TabCollection);
-    expect(matches.length()).toBe(1);
-  });
-
-  it('search is case insensitive', () => {
-    let tabCollection = new TabCollection([
-      createTab("Hello World"),
-      createTab("Goodbye World")
-    ]);
-    let matches = tabCollection.search("HELLO");
-
-    expect(matches).toBeInstanceOf(TabCollection);
-    expect(matches.length()).toBe(1);
-  })
-
   // it('pinned tab appears at the top of the collection', () => {
   //   let tabCollection = new TabCollection([
   //     createTab("Hello World"),
