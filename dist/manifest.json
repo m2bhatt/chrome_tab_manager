@@ -20,5 +20,14 @@
   "permissions": [
     "tabs",
     "<all_urls>"
-  ]
+  ],
+
+  "commands": {
+    "_execute_browser_action": {
+      "suggested_key": {
+        "windows": "Ctrl+Shift+U",
+        "mac": "MacCtrl+Shift+Space"
+      }
+    }
+  }
 }
