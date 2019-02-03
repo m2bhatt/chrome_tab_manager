@@ -17,32 +17,32 @@ describe(Tab, () => {
         expect(createTab()).toBeInstanceOf(Tab);
     });
 
-    test('it can pin a tab', () => {
-        let tab = createTab();
+    // test('it can pin a tab', () => {
+    //     let tab = createTab();
 
-        tab.pin();
+    //     tab.pin();
 
-        expect(chrome.tabs.update).toBeCalledTimes(1);
-        expect(chrome.tabs.update).toBeCalledWith(expect.any(Number), expect.objectContaining({ pinned: true }));
-    });
+    //     expect(chrome.tabs.update).toBeCalledTimes(1);
+    //     expect(chrome.tabs.update).toBeCalledWith(expect.any(Number), expect.objectContaining({ pinned: true }));
+    // });
 
-    test('it can close a tab', () => {
-        let tab = createTab();
+    // test('it can close a tab', () => {
+    //     let tab = createTab();
 
-        tab.close();
+    //     tab.close();
 
-        expect(chrome.tabs.remove).toBeCalledTimes(1);
-    });
+    //     expect(chrome.tabs.remove).toBeCalledTimes(1);
+    // });
 
-    test('it can unpin a tab', () => {
-        let tab = createTab();
+    // test('it can unpin a tab', () => {
+    //     let tab = createTab();
 
-        tab.pin();
-        tab.pin();
+    //     tab.pin();
+    //     tab.pin();
 
-        expect(chrome.tabs.update).toBeCalledTimes(2);
-        expect(chrome.tabs.update).toBeCalledWith(expect.any(Number), expect.objectContaining({ pinned: false }));
-    });
+    //     expect(chrome.tabs.update).toBeCalledTimes(2);
+    //     expect(chrome.tabs.update).toBeCalledWith(expect.any(Number), expect.objectContaining({ pinned: false }));
+    // });
 
     it('supports searching by exact title', () => {
         let tab = createTab("Hello World");

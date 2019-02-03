@@ -1,5 +1,6 @@
 export interface ChromeTab {
     id?: number;
+    index?: number;
     pinned: boolean;
     url?: string;
     favIconUrl?: string;
@@ -8,6 +9,7 @@ export interface ChromeTab {
 
 export default class Tab {
     id: number;
+    index: number;
     pinned: boolean;
     title: string;
     url: string;
@@ -16,6 +18,7 @@ export default class Tab {
 
     constructor(chromeTab: ChromeTab, options = { chrome: { tabs: null } }) {
         this.id = chromeTab.id;
+        this.index = chromeTab.index;
         this.pinned = chromeTab.pinned;
         this.title = chromeTab.title;
         this.url = chromeTab.url;
@@ -27,13 +30,19 @@ export default class Tab {
         }
     }
 
-    close(callback = undefined) {
+    close(e: Event, callback = undefined) {
+        e.stopPropagation();
         this.tabs.remove(this.id, callback);
     }
 
-    pin() {
+    pin(e: Event) {
+        e.stopPropagation();
         this.tabs.update(this.id, {pinned: !this.pinned});
         this.pinned = !this.pinned;
+    }
+
+    highlight(callback = undefined) {
+        this.tabs.highlight({tabs: this.index}, callback);
     }
 
     query(query) {

@@ -10,19 +10,21 @@ class TabRenderer {
   }
 
   render($tabCollection) {
-    var $tab = this.$tab = $tabCollection.append("<li class='subcontainer'></li>").children(":last-child");
+    var $tab = this.$tab = $tabCollection.append("<li class='subcontainer'></li>")
+      .children(":last-child")
+      .click(() => this.tab.highlight());
 
     $tab.append(`<img class="favicon" src="${this.tab.favIconUrl}">`); 
     $tab.append(`<text class="title">${this.tab.title.substring(0,40)}</text>`);
-    $tabCollection.append(`<text class="link">${this.tab.url.substring(0,40)}</text>`);
+    $tab.append(`<text class="link">${this.tab.url.substring(0,40)}</text>`);
 
     $tab.append('<input class="delTab" type="button" value="x"></input>')
          .children(":last-child")
-         .click(() => this.tab.close(() => $tab.remove()));
+         .click((e) => this.tab.close(e, () => $tab.remove()));
 
     $tab.append('<input class="pinTab" type="button" value="p"></input>')
       .children(":last-child")
-      .click(() => this.tab.pin());
+      .click((e) => this.tab.pin(e));
   }
 
   show(condition: (tab: Tab) => Boolean) {
