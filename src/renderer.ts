@@ -15,16 +15,18 @@ class TabRenderer {
       .click(() => this.tab.highlight());
 
     $tab.append(`<img class="favicon" src="${this.tab.favIconUrl}">`); 
-    $tab.append(`<text class="title">${this.tab.title.substring(0,40)}</text>`);
-    $tab.append(`<text class="link">${this.tab.url.substring(0,40)}</text>`);
+    $tab.append(`<text class="title">${this.escapeHtml(this.truncate(this.tab.title))}</text>`);
 
-    $tab.append('<input class="delTab" type="button" value="x"></input>')
+    $tab.append('<input class="delTab" type="button" value="&#10005"></input>')
          .children(":last-child")
          .click((e) => this.tab.close(e, () => $tab.remove()));
 
-    $tab.append('<input class="pinTab" type="button" value="p"></input>')
+    $tab.append('<input class="pinTab" type="button"></input>')
       .children(":last-child")
       .click((e) => this.tab.pin(e));
+
+    $tab.append(`<text class="link">${this.escapeHtml(this.truncate(this.tab.url))}</text>`);
+
   }
 
   show(condition: (tab: Tab) => Boolean) {
@@ -33,6 +35,34 @@ class TabRenderer {
     } else {
       this.$tab.hide();
     }
+  }
+  
+  private truncate(string: String) {
+    var result = string;
+
+    if (string.length > 40) {
+      result = string.substring(0,40) + "...";
+    }
+
+    return result;
+  }
+
+  // TODO: find a better/easier way to escape HTML?
+  private escapeHtml(string: String) {
+    var entityMap = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;',
+      '/': '&#x2F;',
+      '`': '&#x60;',
+      '=': '&#x3D;'
+    };
+
+    return String(string).replace(/[&<>"'`=\/]/g, function (s) {
+      return entityMap[s];
+    });
   }
 }
 
@@ -65,7 +95,7 @@ class SearchFormRenderer {
   searchCallback = null;
 
   render($container) {
-    let $searchForm = $container.append("<form class='searchForm'><input class='searchInput' type='text' placeholder='Search'></form>").children(":last-child");
+    let $searchForm = $container.append("<form class='searchForm'><input class='searchInput' type='text' autofocus placeholder='Search'></form>").children(":last-child");
     $searchForm.submit((event) => this.search(event));
   }
 

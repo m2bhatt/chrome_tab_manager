@@ -2,6 +2,7 @@ body {
     font-family: 'Sarabun', sans-serif;
     min-width: 512px;
     background-color: #F8F8FF;
+    font-size: 20px;
 }
 
 .container {
@@ -12,13 +13,14 @@ body {
 } 
 
 .searchInput {
-  width: 80%;
+  width: 95%;
   display: block;
   margin: auto;
-  height: 10%;
+  height: 12%;
   padding: 2%;
   border: 1px solid rgba(123, 122, 128, 0.678); 
   border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(43, 42, 42, 0.2), 0 6px 20px 0 rgba(37, 37, 37, 0.19);
 }
 
 .subcontainer {
@@ -29,7 +31,7 @@ body {
 .title {
   color: black;
   font-size: 16px;
-  padding: 0 0 0 4%
+  padding: 0 0 0 4%;
   /* padding-left: 2px; */
 }
 
@@ -38,6 +40,7 @@ body {
   font-size: 75%;
   padding-left:20px; 
   padding-bottom: 5px;
+  display: block;
 }
 
 .favicon {
@@ -45,13 +48,18 @@ body {
   width: 20px;
 }
 
+input {
+  -webkit-appearance: none;
+  border: none;
+}
+
 .delTab {
   color: black;
   background: transparent;
-  border: 1px solid black;
-  border-radius: 6px;
   margin-left: 2px;
   float: right;
+  height: 20px;
+  width: 20px;
 }
 
 .delTab:hover {
@@ -60,14 +68,15 @@ body {
 } 
 
 .pinTab {
-  color: black;
-  background: transparent;
-  border: 1px solid black;
-  border-radius: 6px;
+  background: url('images/push-pin-white.png');
   float: right;
+  height: 16px;
+  width: 16px;
 }
 
 .pinTab:hover {
-  background-color: black; 
-  color: white; 
+  background: url('images/push-pin-black.png');
+  float: right;
+  height: 16px;
+  width: 16px;
 } 
