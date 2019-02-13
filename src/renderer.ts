@@ -100,8 +100,8 @@ class SearchFormRenderer {
   searchCallback = null;
 
   render($container) {
-    let $searchForm = $container.append("<form class='searchForm'><input class='searchInput' type='text' autofocus placeholder='Search'></form>").children(":last-child");
-    $searchForm.submit((event) => this.search(event));
+    let $inputField = $container.append("<input class='searchInput' type='text' autofocus placeholder='Search' />").children(":last-child");
+    $inputField.on("change keyup", (event) => this.search(event));
   }
 
   search(eventOrCallback) {
@@ -109,7 +109,7 @@ class SearchFormRenderer {
       this.searchCallback = eventOrCallback;
     } else {
       eventOrCallback.preventDefault();
-      let query = (eventOrCallback.target.children[0] as HTMLInputElement).value;
+      let query = (eventOrCallback.target as HTMLInputElement).value;
       this.searchCallback(query);
     }
   }
