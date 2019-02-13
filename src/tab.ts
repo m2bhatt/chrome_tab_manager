@@ -30,13 +30,11 @@ export default class Tab {
         }
     }
 
-    close(e: Event, callback = undefined) {
-        e.stopPropagation();
+    close(callback = undefined) {
         this.tabs.remove(this.id, callback);
     }
 
-    pin(e: Event) {
-        e.stopPropagation();
+    pin() {
         this.tabs.update(this.id, {pinned: !this.pinned});
         this.pinned = !this.pinned;
     }

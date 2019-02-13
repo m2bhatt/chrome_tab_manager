@@ -19,14 +19,19 @@ class TabRenderer {
 
     $tab.append('<input class="delTab" type="button" value="&#10005"></input>')
          .children(":last-child")
-         .click((e) => this.tab.close(e, () => $tab.remove()));
+         .click((e: Event) => {
+           e.stopPropagation();
+           this.tab.close(() => $tab.remove())
+         });
 
     $tab.append('<input class="pinTab" type="button"></input>')
       .children(":last-child")
-      .click((e) => this.tab.pin(e));
+      .click((e: Event) => {
+        e.stopPropagation();
+        this.tab.pin();
+      });
 
     $tab.append(`<text class="link">${this.escapeHtml(this.truncate(this.tab.url))}</text>`);
-
   }
 
   show(condition: (tab: Tab) => Boolean) {
