@@ -38,6 +38,18 @@ class TabRenderer {
     $tab.append(`<text class="link">${this.escapeHtml(this.truncate(this.tab.url))}</text>`);
   }
 
+  select() {
+
+  }
+
+  deselect() {
+
+  }
+
+  open() {
+
+  }
+
   isVisible() {
     return this.$tab.is(":visible");
   }
@@ -103,6 +115,18 @@ class TabCollectionRenderer {
     }
   }
 
+  selectNextTab() {
+
+  }
+
+  selectPreviousTab() {
+
+  }
+
+  openSelectedTab() {
+
+  }
+
   select(selectedTab) {
     let visibleTabs = []
     for(let tabRenderer of this.tabRenderers) {
@@ -151,11 +175,14 @@ export default class Renderer {
     var selectedTab = 0;
     this.$app.keyup((event) => {
       if (event.keyCode == ARROW_DOWN) {
-        selectedTab += 1
+        selectedTab += 1 // can be removed once selectNextTab is implemented
+        tabCollectionRenderer.selectNextTab();
       } else if (event.keyCode == ARROW_UP) {
-        selectedTab -= 1
+        selectedTab -= 1 // can be removed once selectPreviousTab is implemented
+        tabCollectionRenderer.selectPreviousTab();
       } else if (event.keyCode == ENTER) {
-        tabCollectionRenderer.select(selectedTab);
+        tabCollectionRenderer.select(selectedTab); // can be removed once openSelectedTab is implemented
+        tabCollectionRenderer.openSelectedTab();
       }
     });
   }
