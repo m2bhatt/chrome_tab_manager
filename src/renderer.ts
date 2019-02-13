@@ -1,6 +1,10 @@
 import TabCollection from './tab_collection';
 import Tab from './tab';
 
+const ARROW_DOWN = 40;
+const ARROW_UP = 38;
+const ENTER = 13;
+
 class TabRenderer {
   tab: Tab;
   $tab: JQuery<HTMLElement>;
@@ -32,6 +36,10 @@ class TabRenderer {
       });
 
     $tab.append(`<text class="link">${this.escapeHtml(this.truncate(this.tab.url))}</text>`);
+  }
+
+  isVisible() {
+    return this.$tab.is(":visible");
   }
 
   show(condition: (tab: Tab) => Boolean) {
@@ -94,24 +102,35 @@ class TabCollectionRenderer {
       tabRenderer.show((tab) => tab.query(query))
     }
   }
+
+  select(selectedTab) {
+    let visibleTabs = []
+    for(let tabRenderer of this.tabRenderers) {
+      if (tabRenderer.isVisible()) visibleTabs.push(tabRenderer.tab);
+    }
+
+    visibleTabs[selectedTab].highlight();
+  }
 }
 
 class SearchFormRenderer {
   searchCallback = null;
+
+  constructor(searchCallback) {
+    this.searchCallback = searchCallback;
+  }
 
   render($container) {
     let $inputField = $container.append("<input class='searchInput' type='text' autofocus placeholder='Search' />").children(":last-child");
     $inputField.on("change keyup", (event) => this.search(event));
   }
 
-  search(eventOrCallback) {
-    if (typeof eventOrCallback == "function") {
-      this.searchCallback = eventOrCallback;
-    } else {
-      eventOrCallback.preventDefault();
-      let query = (eventOrCallback.target as HTMLInputElement).value;
-      this.searchCallback(query);
-    }
+  search(event) {
+    if (event.keyCode == ARROW_UP || event.keyCode == ARROW_DOWN) return;
+
+    event.preventDefault();
+    let query = (event.target as HTMLInputElement).value;
+    this.searchCallback(query);
   }
 }
 
@@ -123,12 +142,21 @@ export default class Renderer {
   }
 
   render(tabCollection: TabCollection) {
-    let searchFormRenderer = new SearchFormRenderer()
+    let searchFormRenderer = new SearchFormRenderer((query) => tabCollectionRenderer.filter(query))
     searchFormRenderer.render(this.$app);
 
     let tabCollectionRenderer = new TabCollectionRenderer(tabCollection)
     tabCollectionRenderer.render(this.$app);
 
-    searchFormRenderer.search((query) => tabCollectionRenderer.filter(query));
+    var selectedTab = 0;
+    this.$app.keyup((event) => {
+      if (event.keyCode == ARROW_DOWN) {
+        selectedTab += 1
+      } else if (event.keyCode == ARROW_UP) {
+        selectedTab -= 1
+      } else if (event.keyCode == ENTER) {
+        tabCollectionRenderer.select(selectedTab);
+      }
+    });
   }
 }
