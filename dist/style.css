@@ -80,3 +80,7 @@ input {
   height: 16px;
   width: 16px;
 } 
+
+.selectTab {
+  background-color: aquamarine;
+}

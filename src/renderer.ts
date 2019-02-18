@@ -1,5 +1,6 @@
 import TabCollection from './tab_collection';
 import Tab from './tab';
+import * as $ from 'jquery';
 
 const ARROW_DOWN = 40;
 const ARROW_UP = 38;
@@ -94,10 +95,12 @@ class TabRenderer {
 class TabCollectionRenderer {
   tabs: TabCollection;
   tabRenderers: TabRenderer[];
+  selectedTab: number;
 
   constructor(tabs: TabCollection) {
     this.tabs = tabs;
     this.tabRenderers = [];
+    this.selectedTab = 0;
   }
 
   render($container) {
@@ -116,15 +119,28 @@ class TabCollectionRenderer {
   }
 
   selectNextTab() {
+    $(".subcontainer").eq(this.selectedTab).removeClass("selectTab");
+
+    if (this.selectedTab < this.tabs.length() - 1) {
+      this.selectedTab += 1
+    };
+
+    $(".subcontainer").eq(this.selectedTab).addClass("selectTab");
 
   }
 
   selectPreviousTab() {
+    $(".subcontainer").eq(this.selectedTab).removeClass("selectTab");
 
+    if (this.selectedTab > 0) {
+      this.selectedTab -= 1;
+    }
+
+    $(".subcontainer").eq(this.selectedTab).addClass("selectTab");
   }
 
   openSelectedTab() {
-
+    this.select(this.selectedTab);
   }
 
   select(selectedTab) {
@@ -172,16 +188,13 @@ export default class Renderer {
     let tabCollectionRenderer = new TabCollectionRenderer(tabCollection)
     tabCollectionRenderer.render(this.$app);
 
-    var selectedTab = 0;
+    // var selectedTab = 0;
     this.$app.keyup((event) => {
       if (event.keyCode == ARROW_DOWN) {
-        selectedTab += 1 // can be removed once selectNextTab is implemented
         tabCollectionRenderer.selectNextTab();
       } else if (event.keyCode == ARROW_UP) {
-        selectedTab -= 1 // can be removed once selectPreviousTab is implemented
         tabCollectionRenderer.selectPreviousTab();
       } else if (event.keyCode == ENTER) {
-        tabCollectionRenderer.select(selectedTab); // can be removed once openSelectedTab is implemented
         tabCollectionRenderer.openSelectedTab();
       }
     });
